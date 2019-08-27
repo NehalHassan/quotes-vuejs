@@ -1,17 +1,31 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <quoteform @quoteAdded="addNewQuote"/>
+    <quoteList :quotes="quotes" @quoteDeleted="deleteQuote" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import QuoteForm from './components/QuoteForm';
+import QuoteList from './components/QuoteList'
 export default {
   name: 'app',
+  data() {
+    return {
+      quotes: ['This is my first Quote'],
+    }
+  },
   components: {
-    HelloWorld
+    quoteform: QuoteForm,
+    quoteList: QuoteList
+  },
+  methods: {
+    addNewQuote(quote) {
+      this.quotes.push(quote)
+    },
+    deleteQuote(index) {
+      this.quotes.splice(index,1)
+    }
   }
 }
 </script>
