@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="row col-12">
     <quote v-for="(quote, index) in quotes" v-bind:key="index">
       {{quote}}
       <div class="quote-actions">

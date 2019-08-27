@@ -1,15 +1,21 @@
 <template>
-  <div id="app">
+  <div class="row" id="app">
+    <quotesBar :quotes="quotes"/>
     <quoteform @quoteAdded="addNewQuote"/>
     <quoteList :quotes="quotes" @quoteDeleted="deleteQuote" />
+    <div class="row col-12">
+      <div class="alert alert-primary col-12" v-if="!quotes.length">Add new quotes to your list</div>
+      <div class="alert alert-warning col-12" v-if="quotes.length>10">delete quotes to add new one</div>
+    </div>
   </div>
 </template>
 
 <script>
 import QuoteForm from './components/QuoteForm';
-import QuoteList from './components/QuoteList'
+import QuoteList from './components/QuoteList';
+import QuotesBar from './components/QuotesBar';
+
 export default {
-  name: 'app',
   data() {
     return {
       quotes: ['This is my first Quote'],
@@ -17,7 +23,8 @@ export default {
   },
   components: {
     quoteform: QuoteForm,
-    quoteList: QuoteList
+    quoteList: QuoteList,
+    quotesBar: QuotesBar
   },
   methods: {
     addNewQuote(quote) {
@@ -39,4 +46,12 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+body{
+  overflow-x: hidden;
+  width: 100%;
+  padding: 0 60px;
+}
+
+
 </style>
