@@ -6,7 +6,8 @@
           <textarea v-model="quote" class="form-control" rows="3" placeholder="Enter Your Quote...."/>
         </div>
         <div class="float-left col-sm-8 col-xs-12 col-md-4">
-          <button type="submit" class="btn btn-primary btn-block" @click.prevent='addNewQuote'>Add New Quote</button>
+          <button type="submit" class="btn btn-primary btn-block" @click.prevent='addNewQuote' v-if="!!!currentQuote">Add New Quote</button>
+          <button type="submit" class="btn btn-primary btn-block" @click.prevent='editQuote' v-if="!!currentQuote">Edit Quote</button>
         </div>
       </form>
     </div>
@@ -16,6 +17,9 @@
 
 <script>
 export default {
+  props:{
+    currentQuote: String,
+  },
   data() {
     return {
       quote: ''

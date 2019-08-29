@@ -4,7 +4,7 @@
       {{quote}}
       <div class="quote-actions">
         <i class="fa fa-trash delete-quote" @click="deleteQuote(index)"></i>
-        <i class="fa fa-edit edit-quote"></i>
+        <i class="fa fa-edit edit-quote" @click="startEditing(index)"></i>
       </div>
     </quote>
   </div>
@@ -21,6 +21,9 @@ export default {
   methods: {
     deleteQuote(index){
       this.$emit('quoteDeleted', index)
+    },
+    startEditing(index) {
+      this.$emit('startEditing', index)
     }
   }
 }

@@ -1,8 +1,8 @@
 <template>
   <div class="row" id="app">
     <quotesBar :quotes="quotes"/>
-    <quoteform @quoteAdded="addNewQuote"/>
-    <quoteList :quotes="quotes" @quoteDeleted="deleteQuote" />
+    <quoteform @quoteAdded="addNewQuote" @quoteedited="editQuote" :currentQuote="currentQuote"/>
+    <quoteList :quotes="quotes" @quoteDeleted="deleteQuote" @startEditing="startEditing" />
     <div class="row col-12">
       <div class="alert alert-primary col-12" v-if="!quotes.length">Add new quotes to your list</div>
       <div class="alert alert-warning col-12" v-if="quotes.length>10">delete quotes to add new one</div>
@@ -18,6 +18,7 @@ import QuotesBar from './components/QuotesBar';
 export default {
   data() {
     return {
+      currentQuote: '',
       quotes: ['This is my first Quote'],
     }
   },
@@ -32,6 +33,12 @@ export default {
     },
     deleteQuote(index) {
       this.quotes.splice(index,1)
+    },
+    editQuote(index,quote) {
+      this.quotes[index] = quote;
+    },
+    startEditing(index) {
+      this.currentQuote = this.quotes[index]
     }
   }
 }
