@@ -1,12 +1,24 @@
 <template>
   <div class="row" id="app">
     <quotesBar :quotes="quotes"/>
-    <quoteform @quoteAdded="addNewQuote" @quoteedited="editQuote" :currentQuote="currentQuote"/>
-    <quoteList :quotes="quotes" @quoteDeleted="deleteQuote" @startEditing="startEditing" />
+    <quoteform
+      v-if="quotes.length<10"
+      @quoteAdded="addNewQuote"
+      @quoteEdited="editQuote"
+      :currentQuote="currentQuote"
+    />
+
+    <quoteList
+      :quotes="quotes"
+      @quoteDeleted="deleteQuote"
+      @startEditing="startEditing"
+    />
+
     <div class="row col-12">
       <div class="alert alert-primary col-12" v-if="!quotes.length">Add new quotes to your list</div>
-      <div class="alert alert-warning col-12" v-if="quotes.length>10">delete quotes to add new one</div>
+      <div class="alert alert-warning col-12" v-if="quotes.length>=10">delete quotes to add new one</div>
     </div>
+
   </div>
 </template>
 
@@ -34,11 +46,12 @@ export default {
     deleteQuote(index) {
       this.quotes.splice(index,1)
     },
-    editQuote(index,quote) {
-      this.quotes[index] = quote;
+    editQuote(quote) {
+      this.quotes[this.currenQuoteIndex] = quote;
     },
     startEditing(index) {
       this.currentQuote = this.quotes[index]
+      this.currenQuoteIndex = index;
     }
   }
 }

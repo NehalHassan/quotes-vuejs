@@ -1,6 +1,6 @@
 <template>
   <div class="row col-12">
-    <quote v-for="(quote, index) in quotes" v-bind:key="index">
+    <quote v-for="(quote, index) in quotesArray" v-bind:key="index">
       {{quote}}
       <div class="quote-actions">
         <i class="fa fa-trash delete-quote" @click="deleteQuote(index)"></i>
@@ -14,9 +14,16 @@
 import QuoteCard from './QuoteCard';
 
 export default {
-  props:['quotes'],
+  props:{
+    quotes: Array
+  },
   components: {
     quote: QuoteCard,
+  },
+  data(){
+    return {
+      quotesArray: this.quotes
+    }
   },
   methods: {
     deleteQuote(index){
